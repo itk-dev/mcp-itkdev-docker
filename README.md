@@ -21,7 +21,8 @@ access external resources and tools. This server provides:
 ### Build
 
 ```bash
-cd mcp
+git clone https://github.com/itk-dev/mcp-itkdev-docker.git
+cd mcp-itkdev-docker
 npm install
 npm run build
 ```
@@ -39,13 +40,13 @@ Create or edit `~/.claude.json`:
   "mcpServers": {
     "itkdev": {
       "command": "node",
-      "args": ["/path/to/itkdev-docker/mcp/dist/index.js"]
+      "args": ["/path/to/mcp-itkdev-docker/dist/index.js"]
     }
   }
 }
 ```
 
-Replace `/path/to/itkdev-docker` with the actual path to your itkdev-docker clone.
+Replace `/path/to/mcp-itkdev-docker` with the actual path to your clone.
 
 #### Option 2: Project-specific configuration
 
@@ -56,7 +57,7 @@ Create `.mcp.json` in your project root:
   "mcpServers": {
     "itkdev": {
       "command": "node",
-      "args": ["/path/to/itkdev-docker/mcp/dist/index.js"]
+      "args": ["/path/to/mcp-itkdev-docker/dist/index.js"]
     }
   }
 }
@@ -65,7 +66,7 @@ Create `.mcp.json` in your project root:
 #### Option 3: CLI command
 
 ```bash
-claude mcp add itkdev --scope user -- node /path/to/itkdev-docker/mcp/dist/index.js
+claude mcp add itkdev --scope user -- node /path/to/mcp-itkdev-docker/dist/index.js
 ```
 
 ### Verify Installation
@@ -194,10 +195,14 @@ Rebuilds on file changes.
 ### Project Structure
 
 ```text
-mcp/
+mcp-itkdev-docker/
 ├── src/
 │   └── index.ts      # MCP server implementation
 ├── dist/             # Compiled output (gitignored)
+├── docs/             # Documentation served as MCP resources
+│   ├── itkdev-docker-cli.md
+│   ├── itkdev-docker-compose.md
+│   └── itkdev-task-files.md
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -214,14 +219,6 @@ mcp/
 
 ### Tools Not Working
 
-1. Verify the itkdev-docker repository is complete (has templates/, documentation files)
-2. Check file permissions on the mcp/dist directory
+1. Verify the repository is complete (has docs/ directory with documentation files)
+2. Check file permissions on the dist directory
 3. Look for error messages in Claude Code's output
-
-### Documentation Not Found
-
-Ensure these files exist in `itkdev-docker/docs/`:
-
-- `docs/itkdev-docker-cli.md`
-- `docs/itkdev-docker-compose.md`
-- `docs/itkdev-task-files.md`
