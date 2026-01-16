@@ -13,12 +13,29 @@ access external resources and tools. This server provides:
 
 ## Installation
 
-### Prerequisites
+This MCP server is part of the [ITK Dev Claude Plugins](https://github.com/itk-dev/itkdev-claude-plugins).
+
+### Via Plugin Marketplace (Recommended)
+
+Install through the ITK Dev plugin marketplace:
+
+```bash
+/plugin marketplace add itk-dev/itkdev-claude-plugins
+/plugin install itkdev-tools@itkdev-marketplace
+```
+
+The MCP server will be automatically configured.
+
+### Manual Installation
+
+For development or standalone use:
+
+#### Prerequisites
 
 - Node.js 18 or later
 - npm
 
-### Build
+#### Build
 
 ```bash
 git clone https://github.com/itk-dev/mcp-itkdev-docker.git
@@ -27,46 +44,32 @@ npm install
 npm run build
 ```
 
-### Configure Claude Code
+#### Configure Claude Code
 
-Configure Claude Code using one of these methods:
-
-#### Option 1: User-wide configuration (all projects)
-
-Create or edit `~/.claude.json`:
+Add to `~/.claude.json` or `.mcp.json` in your project:
 
 ```json
 {
   "mcpServers": {
-    "itkdev": {
-      "command": "node",
-      "args": ["/path/to/mcp-itkdev-docker/dist/index.js"]
+    "itkdev-docker": {
+      "command": "npx",
+      "args": ["-y", "github:itk-dev/mcp-itkdev-docker"]
     }
   }
 }
 ```
 
-Replace `/path/to/mcp-itkdev-docker` with the actual path to your clone.
-
-#### Option 2: Project-specific configuration
-
-Create `.mcp.json` in your project root:
+Or for local development:
 
 ```json
 {
   "mcpServers": {
-    "itkdev": {
+    "itkdev-docker": {
       "command": "node",
       "args": ["/path/to/mcp-itkdev-docker/dist/index.js"]
     }
   }
 }
-```
-
-#### Option 3: CLI command
-
-```bash
-claude mcp add itkdev --scope user -- node /path/to/mcp-itkdev-docker/dist/index.js
 ```
 
 ### Verify Installation
@@ -212,13 +215,13 @@ mcp-itkdev-docker/
 
 ### Server Not Connecting
 
-1. Check that the path in `settings.json` is absolute and correct
-2. Ensure `npm run build` completed successfully
+1. If using the plugin, verify installation with `/plugin list`
+2. For manual installation, check that the path is absolute and correct
 3. Check Node.js version (`node --version` should be 18+)
 4. Restart Claude Code after configuration changes
 
 ### Tools Not Working
 
-1. Verify the repository is complete (has docs/ directory with documentation files)
-2. Check file permissions on the dist directory
+1. Verify the MCP server is running (check Claude Code status)
+2. For manual installation, ensure `npm run build` completed successfully
 3. Look for error messages in Claude Code's output
