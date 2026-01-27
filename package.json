@@ -1,6 +1,6 @@
 {
   "name": "@itkdev/mcp-server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server for ITK Dev Docker projects - provides documentation and tools for AI assistants",
   "type": "module",
   "main": "dist/index.js",
